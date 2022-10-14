@@ -9,3 +9,8 @@ edition = "2021"
 rectangle-pack = "*"
 image = "*"
 imageproc = "*"
+boardgamegeek = "*"
+reqwest = "*"
+serde_json = "*"
+serde = { version = "*", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }

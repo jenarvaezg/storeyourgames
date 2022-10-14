@@ -5,10 +5,11 @@ pub struct Dimensions {
     pub depth: u32,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Ord, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd)]
 pub struct Game {
     pub dimensions: Dimensions,
-    pub name: &'static str,
+    pub name: String,
+    pub is_expansion: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd)]
@@ -67,7 +68,7 @@ impl Dimensions {
 }
 
 impl Game {
-    fn dimensions_without_biggest(self, options: Options) -> Dimensions {
+    fn dimensions_without_biggest(&self, options: Options) -> Dimensions {
         let (side_1, side_2) = self.dimensions.get_smallest_sides();
         if options.vertical {
             return Dimensions {
@@ -84,7 +85,7 @@ impl Game {
         };
     }
 
-    pub fn effective_dimensions_for_bins(self, bin: &Bin, options: Options) -> Dimensions {
+    pub fn effective_dimensions_for_bins(&self, bin: &Bin, options: Options) -> Dimensions {
         if !options.allow_depth_overflow {
             // if longest dimension is longer than bin depth, we need to force that dimension to be used
             let longest_side = self.dimensions.longest_side();
